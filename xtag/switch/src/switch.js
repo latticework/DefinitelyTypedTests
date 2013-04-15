@@ -4,7 +4,7 @@ var SwitchTag;
     var LifecycleOptions = (function () {
         function LifecycleOptions() { }
         LifecycleOptions.prototype.created = function (prototype) {
-            (this).innerHTML = template;
+            this.innerHTML = template;
             (this).onText = (this).onText;
             (this).offText = (this).offText;
             (this).checked = (this).checked;

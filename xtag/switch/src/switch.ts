@@ -1,5 +1,5 @@
-/// <reference path="lib.d.ts"/>
-/// <reference path="../../../latticework/DefinitelyTyped/xtag/xtag.d.ts"/>
+/// <reference path="../../../../DefinitelyTyped/xtag/xtag.d.ts"/>
+/// <reference path="xtag-extensions.ts"/>
 
 module SwitchTag {
   var template: string =  '<input type="checkbox" />' +
@@ -15,9 +15,11 @@ module SwitchTag {
     '</div>' +
   '</div>';
 
-  export class LifecycleOptions implements IXTagLifecycleRegisterOptions {
+  export class LifecycleOptions implements IXTag,  IXTagLifecycleRegisterOptions {
+    public innerHTML: string;
   	public created(prototype: HTMLElement) {
-        (<any>this).innerHTML = template;
+        //(<any>this).innerHTML = template;
+        this.innerHTML = template;
         (<any>this).onText = (<any>this).onText;
         (<any>this).offText = (<any>this).offText;
         (<any>this).checked = (<any>this).checked;
@@ -44,7 +46,7 @@ module SwitchTag {
   }
   
   xtag.register('x-switch', {
-	lifecycle: new SwitchTag.LifecycleOptions(),
+    lifecycle: new SwitchTag.LifecycleOptions(),
     methods: {
       toggle: function(state){
         this.checked = typeof state == 'undefined' ? (this.checked ? false : true) : state;
