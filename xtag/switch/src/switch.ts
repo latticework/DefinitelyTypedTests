@@ -16,15 +16,44 @@ module SwitchTag {
   '</div>';
 
   export class LifecycleOptions implements IXTag,  IXTagLifecycleRegisterOptions {
+    public element: HTMLElement;
+
+    private _inputElement: HTMLInputElement;
+    public get inputElement(): HTMLInputElement { return <HTMLInputElement>this.element.firstElementChild; }
+
     public innerHTML: string;
+
+    constructor() {
+      this.element = <HTMLElement><any>this;
+    }
+
+    public get checked(): bool { return this.inputElement.checked; }
+    public set checked(value: bool) {
+      this.inputElement.checked = value;
+
+      if (this.inputElement.checked) {
+        this.element.removeAttribute('checked');
+      } else {
+        this.element.setAttribute('checked', null);
+      }  
+    }
+
+    public get formName(): string {
+      return this.inputElement.getAttribute('name') || this.element.getAttribute('formName');
+    }
+    public set formName(value: string) {
+      this.inputElement.setAttribute('name', value);
+    }
+
   	public created(prototype: HTMLElement) {
-        //(<any>this).innerHTML = template;
-        this.innerHTML = template;
-        (<any>this).onText = (<any>this).onText;
-        (<any>this).offText = (<any>this).offText;
-        (<any>this).checked = (<any>this).checked;
-        (<any>this).formName = (<any>this).formName;
+      //(<any>this).innerHTML = template;
+  	  this.element.innerHTML = template;
+      (<any>this).onText = (<any>this).onText;
+      (<any>this).offText = (<any>this).offText;
+      (<any>this).checked = (<any>this).checked;
+      (<any>this).formName = (<any>this).formName;
   	}
+
   }
 }
 
