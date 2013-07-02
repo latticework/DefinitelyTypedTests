@@ -55,6 +55,10 @@ module SwitchTag {
   	}
 
   }
+
+  export class SwitchElement extends HTMLDivElement {
+
+  }
 }
 
 (function(){
